@@ -15,8 +15,8 @@ int main( int /*argc*/, char** /*argv*/ )
     pangolin::Handler3D handler(s_cam);
     pangolin::View& d_cam = pangolin::CreateDisplay()
             .SetBounds(0.0, 1.0, 0.0, 1.0, -640.0f/480.0f)
-            .SetHandler(&handler);
-    
+            .SetHandler(&handler);   
+
     while( !pangolin::ShouldQuit() )
     {
         // Clear screen and activate view to render into

@@ -73,6 +73,9 @@ public:
     float Sum() const;
     float Min() const;
     float Max() const;
+
+    int MinX() const;
+    int MaxX() const;
     
 protected:
     DataSequence(const DataSequence& /*o*/) {}
@@ -86,6 +89,9 @@ protected:
     float sum_y_sq;
     float min_y;
     float max_y;
+
+    int min_x;
+    int max_x;
     
 };
 
