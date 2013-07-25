@@ -72,7 +72,7 @@ const static float colour_ms[3] = {0.3,0.3,0.3};
 const static float colour_ax[3] = {0.5,0.5,0.5};
 
 DataSequence::DataSequence(unsigned int buffer_size, unsigned size, float val )
-    : buffer_size(buffer_size), ys(0), firstn(size), n(0), sum_y(0), sum_y_sq(0), min_x(0), max_x(0),
+    : buffer_size(buffer_size), ys(0), firstn(size), n(0), sum_y(0), sum_y_sq(0), min_y_pos(0), max_y_pos(0),
       min_y(numeric_limits<float>::max()),
       max_y(numeric_limits<float>::min())
 {
@@ -88,11 +88,15 @@ void DataSequence::Add(float val)
 {
     operator[](n++) = val;
     
-    min_y = std::min(min_y,val);
-    max_y = std::max(max_y,val);
+    if (val < min_y) {
+        min_y = val;
+        min_y_pos = n;
+    }
 
-    min_x = (val < ys[(min_x-firstn) % buffer_size]) ? n : min_x;
-    max_x = (val > ys[(max_x-firstn) % buffer_size]) ? n : max_x;
+    if (val > max_y) {
+        max_y = val;
+        max_y_pos = n;
+    }
 
     sum_y += val;
     sum_y_sq += val*val;
@@ -106,8 +110,8 @@ void DataSequence::Clear()
     sum_y_sq = 0;
     min_y = numeric_limits<float>::max();
     max_y = numeric_limits<float>::min();
-    min_x = 0;
-    max_x = 0;
+    min_y_pos = 0;
+    max_y_pos = 0;
 }
 
 float DataSequence::operator[](int i) const
@@ -135,14 +139,14 @@ float DataSequence::Max() const
     return max_y;    
 }
 
-int DataSequence::MinX() const
+int DataSequence::MinYPos() const
 {
-    return min_x;
+    return min_y_pos;
 }
 
-int DataSequence::MaxX() const
+int DataSequence::MaxYPos() const
 {
-    return max_x;
+    return max_y_pos;
 }
 
 

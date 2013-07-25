@@ -74,8 +74,8 @@ public:
     float Min() const;
     float Max() const;
 
-    int MinX() const;
-    int MaxX() const;
+    int MinYPos() const;
+    int MaxYPos() const;
     
 protected:
     DataSequence(const DataSequence& /*o*/) {}
@@ -90,8 +90,8 @@ protected:
     float min_y;
     float max_y;
 
-    int min_x;
-    int max_x;
+    int min_y_pos;
+    int max_y_pos;
     
 };
 
