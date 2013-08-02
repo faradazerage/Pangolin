@@ -30,14 +30,19 @@
 #include <algorithm>
 #include <stdexcept>
 #include <fstream>
+#include <cstring>
 
 #ifdef HAVE_PNG
 #include <png.h>
-#endif
+#endif // HAVE_PNG
 
 #ifdef HAVE_JPEG
 #include <jpeglib.h>
-#endif
+#ifndef HAVE_PNG
+// This should not be included when HAVE_PNG, as png.h includes its own.
+#include <setjmp.h>
+#endif // HAVE_PNG
+#endif // HAVE_JPEG
 
 namespace pangolin {
 
